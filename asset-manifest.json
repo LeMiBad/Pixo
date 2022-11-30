@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Pixo/static/css/main.4badc482.css",
+    "main.js": "/Pixo/static/js/main.0255d3ed.js",
+    "index.html": "/Pixo/index.html",
+    "main.4badc482.css.map": "/Pixo/static/css/main.4badc482.css.map",
+    "main.0255d3ed.js.map": "/Pixo/static/js/main.0255d3ed.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4badc482.css",
+    "static/js/main.0255d3ed.js"
+  ]
+}
