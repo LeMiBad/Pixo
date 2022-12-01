@@ -43,3 +43,7 @@ export const $canvas = createStore(initialState)
         newState.canvas = newCanvas
         return newState
     })
+    
+export const setCanvasSize = createEvent<number>()
+export const $canvasSize = createStore(3)
+    .on(setCanvasSize, (_, size) => size)

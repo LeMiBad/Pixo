@@ -1,14 +1,26 @@
 import { useStore } from 'effector-react'
 import { HexColorPicker } from "react-colorful";
 import React, { useEffect, useRef, useState } from 'react'
-import { $canvas, paint, setNewCanvas } from '../../store/canvasMode'
+import { $canvas, $canvasSize, paint, setNewCanvas } from '../../store/canvasMode'
 import css from './Area.module.sass'
+import { $color, setColor } from '../../store/colorPickerModel';
+import ArtModal from '../ArtModal/ArtModal';
+import SavedColor from '../SavedColor/savedColor';
+
 
 const Area = () => {
     const [nameInput, setNameInput] = useState('Первый рисунок')
-    const [color, setColor] = useState('#ffffff')
+    const color = useStore($color)
+    const canvasSize = useStore($canvasSize)
     const [mouseDown, setMouseDown] = useState(false)
     const [usedColors, setUsedColor] = useState(['#000000', '#ffffff'])
+    const [isModal, setIsModal] = useState(false)
+
+
+    const modalHandler = () => {
+        if(isModal) setIsModal(false)
+        else setIsModal(true)
+    }
 
     
     const canvasRef = useRef() as React.MutableRefObject<HTMLDivElement>
@@ -32,7 +44,7 @@ const Area = () => {
     }
 
     useEffect(() => {
-        if(canvasRef.current) setNewCanvas([18, canvasRef.current.clientWidth])
+        if(canvasRef.current) setNewCanvas([canvasSize, canvasRef.current.clientWidth])
     }, [])
 
     useEffect(() => {
@@ -47,6 +59,7 @@ const Area = () => {
     })
 
     return <>
+        {isModal? <ArtModal func={modalHandler}/> : <></>}
         <div className={css.closeBackground}></div>
         <div className={css.wrapper}>
             <div ref={canvasRef} className={css.canvas}>
@@ -65,16 +78,16 @@ const Area = () => {
                     <input onChange={nameHandler} value={nameInput} className={css.nameInput}/>
                     <div className={css.colorPalette}>
                         {usedColors.map((color, i) => {
-                            return <div
+                            console.log(color)
+                            return <SavedColor
                             key={i}
-                            onClick={() => {setColor(color)}}
-                            className={css.color} 
-                            style={{backgroundColor: color}}></div>
+                            color={color}
+                            setColor={setColor}/>
                         })}
                     </div>
                     <HexColorPicker color={color} onChange={setColor} onMouseUp={colorHandler}/>
                 </div>
-                <div className={css.preview}>
+                <div onClick={modalHandler} className={css.preview}>
                 {canvas.map((row, i) => {
                     return <div key={i} className={css.row}>
                         {row.map((cell, j) => <div className={css.cell}
