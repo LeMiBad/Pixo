@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Pixo/static/css/main.1d699ed2.css",
-    "main.js": "/Pixo/static/js/main.810ba616.js",
+    "main.css": "/Pixo/static/css/main.4f35634e.css",
+    "main.js": "/Pixo/static/js/main.a05cf932.js",
     "index.html": "/Pixo/index.html",
-    "main.1d699ed2.css.map": "/Pixo/static/css/main.1d699ed2.css.map",
-    "main.810ba616.js.map": "/Pixo/static/js/main.810ba616.js.map"
+    "main.4f35634e.css.map": "/Pixo/static/css/main.4f35634e.css.map",
+    "main.a05cf932.js.map": "/Pixo/static/js/main.a05cf932.js.map"
   },
   "entrypoints": [
-    "static/css/main.1d699ed2.css",
-    "static/js/main.810ba616.js"
+    "static/css/main.4f35634e.css",
+    "static/js/main.a05cf932.js"
   ]
 }
