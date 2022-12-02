@@ -1,19 +1,25 @@
 import { useStore } from 'effector-react'
 import { HexColorPicker } from "react-colorful";
 import React, { useEffect, useRef, useState } from 'react'
-import { $canvas, $canvasSize, paint, setNewCanvas } from '../../store/canvasMode'
+import { $canvas, $canvasSize, paint, setCanvas, setNewCanvas } from '../../store/canvasMode'
 import css from './Area.module.sass'
-import { $color, setColor } from '../../store/colorPickerModel';
+import { $color, $usedColors, addUsedColor, setColor } from '../../store/colorPickerModel';
 import ArtModal from '../ArtModal/ArtModal';
-import SavedColor from '../SavedColor/savedColor';
+import SavedColor from '../SavedColor/SavedColor';
 
+interface IArea {
+    oldCanvas?: {
+        color: string
+        size: number
+    }[][]
+}
 
-const Area = () => {
+const Area: React.FC<IArea> = ({oldCanvas}) => {
     const [nameInput, setNameInput] = useState('Первый рисунок')
     const color = useStore($color)
+    const usedColors = useStore($usedColors)
     const canvasSize = useStore($canvasSize)
     const [mouseDown, setMouseDown] = useState(false)
-    const [usedColors, setUsedColor] = useState(['#000000', '#ffffff'])
     const [isModal, setIsModal] = useState(false)
 
 
@@ -33,7 +39,7 @@ const Area = () => {
     
     const colorHandler = (e: any) => {
         if(!usedColors.includes(color)) {
-            setUsedColor([...usedColors, e.currentTarget.children[0].children[0].children[0].children[0].style.backgroundColor])
+            addUsedColor(e.currentTarget.children[0].children[0].children[0].children[0].style.backgroundColor)
         }
     }
 
@@ -43,9 +49,12 @@ const Area = () => {
         }
     }
 
+
     useEffect(() => {
-        if(canvasRef.current) setNewCanvas([canvasSize, canvasRef.current.clientWidth])
-    }, [])
+        if(oldCanvas) setCanvas(oldCanvas)
+        else setNewCanvas([canvasSize, canvasRef.current.clientWidth])
+    }, [canvasSize, oldCanvas])
+
 
     useEffect(() => {
         const enable = () => setMouseDown(true)
@@ -78,7 +87,6 @@ const Area = () => {
                     <input onChange={nameHandler} value={nameInput} className={css.nameInput}/>
                     <div className={css.colorPalette}>
                         {usedColors.map((color, i) => {
-                            console.log(color)
                             return <SavedColor
                             key={i}
                             color={color}

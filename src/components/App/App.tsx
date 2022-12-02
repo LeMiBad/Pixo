@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
-import Area from '../Area/Area'
 import CanvasSettings from '../CanvasSettings/CanvasSettings'
+import LevelSelect from '../LevelSelect/LevelSelect'
 import css from './App.module.sass'
 
 const App = () => {
@@ -26,7 +26,7 @@ const App = () => {
     return <>
         {!isOpen? <button onClick={buttonHandler} type='button' className={buttonStyle}>{promt}</button> 
         :
-        <CanvasSettings/>}
+        <LevelSelect/>}
     </>
 }
 

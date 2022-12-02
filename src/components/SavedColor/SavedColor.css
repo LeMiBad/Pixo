@@ -1,0 +1,49 @@
+.color{
+    position: relative;
+    min-height: 50px;
+    min-width: 50px;
+    cursor: pointer;
+}
+.color:hover{
+    border: 1px solid black
+}
+.color:hover .deleteButton{
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: 5px;
+    right: 5px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.color:hover .deleteButton::after {
+    content: "✕";
+    font-size: 10px;
+    color: white;
+}
+.color:hover .replaceButton {
+    background: -webkit-linear-gradient(90deg,#c3ff7a,#ff9780,#de85ff); /* Chrome 10-25, Safari 5.1-6 */ background: linear-gradient(90deg,#c3ff7a,#ff9780,#de85ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    top: 5px;
+    left: 5px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.replaceButton:hover {
+    border: 1px solid black
+}
+.deleteButton:hover {
+    border: 1px solid white
+}
+
+.fff {
+    position: absolute;
+    z-index: 30;
+}

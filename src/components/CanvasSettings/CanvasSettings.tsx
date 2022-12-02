@@ -21,7 +21,7 @@ const CanvasSettings = () => {
             </div>
             <div className={css.rangeWrapper}>
                 <h1>Размер поля будет: {sizeInput} на {sizeInput} pixels</h1>
-                <input className={css.range} value={sizeInput} onChange={sizeInputHandler} min={3} max={64} type={'range'}/>
+                <input className={css.range} value={sizeInput} onChange={sizeInputHandler} min={3} max={50} type={'range'}/>
                 <button onClick={acceptSizeInput} type='button'>Далее</button>
             </div>
         </> 

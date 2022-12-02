@@ -1,4 +1,8 @@
-import css from './SavedColor.module.sass'
+import { useState } from 'react'
+import { HexColorPicker } from 'react-colorful'
+import { deleteUsedColor, replaceColor } from '../../store/colorPickerModel'
+import './SavedColor.css'
+import { replaceCanvasColor } from '../../store/canvasMode'
 
 interface IsavedColor {
     color: string
@@ -6,9 +10,26 @@ interface IsavedColor {
 }
 
 const SavedColor: React.FC<IsavedColor> = ({color, setColor}) => {
-    return <div onClick={() => setColor(color)} className={css.color} style={{backgroundColor: color}}>
+    const [replacedColor, setReplacedColor] = useState(color)
+    const [isOpen, setIsOpen] = useState(false)
 
-    </div>
+    const changeReplaceColor = (newColor: string) => {
+        setReplacedColor(newColor)
+        replaceColor({oldColor: color, newColor})
+        replaceCanvasColor({oldColor: color, newColor})
+    }
+
+    return <> 
+        {isOpen? <HexColorPicker color={replacedColor} onChange={changeReplaceColor} onMouseLeave={() => {setIsOpen(false)}} className='fff' style={{
+            position: 'absolute',
+            width: 300,
+            height: 300
+        }}/> : <></>}
+        <div onClick={() => setColor(color)} className={'color'} style={{backgroundColor: color}}>
+            <div className={'deleteButton'} onClick={() => {deleteUsedColor(color)}}/>
+            <div onClick={() => {setIsOpen(true)}} className={'replaceButton'}/>
+        </div>
+    </>
 }
 
 export default SavedColor

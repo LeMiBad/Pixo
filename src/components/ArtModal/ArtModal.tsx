@@ -10,14 +10,15 @@ const ArtModal: React.FC<{func: () => void}> = ({func}) => {
     const {canvas} = useStore($canvas)
     const [anim, setAnim] = useState('')
 
-    const animate = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const animate = (e: any) => {
         let cursTop = e.clientY / (e.currentTarget.offsetHeight / 90),
             cursLeft = e.clientX / (e.currentTarget.offsetWidth / 90)
-        const topDeg = ((160/100) * cursTop)
-        const leftDeg = ((180/100) * cursLeft)
-        setAnim(`rotateX(${(topDeg <= 90)? 360-(80 - topDeg) : 360-(90 - topDeg)}deg) rotateY(${(leftDeg <= 90)? 360-(80 - leftDeg) : 360-(90 - leftDeg)}deg) scale(1)`)
+        const topDeg = (160/100 * cursTop)
+        const leftDeg = (180/100 * cursLeft)
+        const minSide = (e.currentTarget.offsetHeight < e.currentTarget.offsetWidth)? e.currentTarget.offsetHeight : e.currentTarget.offsetWidth
+        const scale = (minSide / 100 * 70) / e.currentTarget.children[0].offsetHeight
+        setAnim(`rotateX(${(topDeg <= 90)? 360-(80 - topDeg) : 360-(90 - topDeg)}deg) rotateY(${(leftDeg <= 90)? 360-(80 - leftDeg) : 360-(90 - leftDeg)}deg) scale(${scale})`)
     }
-    console.log(1)
 
     return <>
         <div onClick={func} onMouseMove={animate} className={css.background}>
