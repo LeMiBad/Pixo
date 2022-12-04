@@ -44,6 +44,6 @@
 }
 
 .fff {
-    position: absolute;
+    width: 250px !important;
     z-index: 30;
 }

@@ -93,7 +93,7 @@ const Area: React.FC<IArea> = ({oldCanvas}) => {
                             setColor={setColor}/>
                         })}
                     </div>
-                    <HexColorPicker color={color} onChange={setColor} onMouseUp={colorHandler}/>
+                    <HexColorPicker className='main-react-colorful' color={color} onChange={setColor} onMouseUp={colorHandler}/>
                 </div>
                 <div onClick={modalHandler} className={css.preview}>
                 {canvas.map((row, i) => {
